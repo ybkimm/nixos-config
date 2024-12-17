@@ -12,7 +12,7 @@ in
     (add-user {
       userName = "ybkimm";
       homePath = "/home/ybkimm";
-      homeConfigName = "default";
+      homeConfigName = "ybkimm";
       extraUserOptions = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];
