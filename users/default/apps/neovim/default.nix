@@ -1,4 +1,4 @@
-{ inputs, nixvim, ... }:
+{ pkgs, nixvim, ... }:
 {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -52,6 +52,10 @@
       termguicolors = true;
       scrolloff = 10;
       hlsearch = false;
+    };
+
+    clipboard = {
+      register = "unnamedplus";
     };
 
     extraConfigLua = ''
