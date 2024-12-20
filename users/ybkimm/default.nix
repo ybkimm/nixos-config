@@ -3,5 +3,6 @@
     ../default
 
     ./apps/dokku
+    ./apps/editorconfig
   ];
 }
