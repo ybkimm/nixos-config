@@ -4,6 +4,7 @@ in
 {
   imports = [
     ./configuration.nix
+    ./apps/mosh.nix
     (add-user {
       userName = "root";
       homePath = "/root";
