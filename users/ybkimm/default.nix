@@ -4,5 +4,6 @@
 
     ./apps/dokku
     ./apps/editorconfig
+    ./apps/mosh
   ];
 }

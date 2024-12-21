@@ -23,6 +23,7 @@
     let
       nodes = [
         { host = "devvm"; os = "nixos"; system = "x86_64-linux"; }
+        { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; }
       ];
       mkHost = node:
         let
