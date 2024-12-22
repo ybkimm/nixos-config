@@ -1,10 +1,10 @@
 let
-  add-user = import ../../utils/add-user;
+  addUser = import ../../utils/addUser;
 in
 {
   imports = [
     ./configuration.nix
-    (add-user {
+    (addUser {
       userName = "ybkimm";
       homePath = "/Users/ybkimm";
       homeConfigName = "ybkimm";

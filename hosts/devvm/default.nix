@@ -1,16 +1,15 @@
 let
-  add-user = import ../../utils/add-user;
+  addUser = import ../../utils/addUser;
 in
 {
   imports = [
     ./configuration.nix
-    ./apps/mosh.nix
-    (add-user {
+    (addUser {
       userName = "root";
       homePath = "/root";
       homeConfigName = "default";
     })
-    (add-user {
+    (addUser {
       userName = "ybkimm";
       homePath = "/home/ybkimm";
       homeConfigName = "ybkimm";

@@ -43,7 +43,7 @@
         {
           ${systemConfiguration}.${node.host} = theSystem {
             system = node.system;
-            specialArgs = inputs;
+            #specialArgs = inputs;
             modules = modules ++ [
               {
                 home-manager = {
