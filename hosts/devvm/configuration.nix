@@ -16,6 +16,10 @@
     git
     vim
     wget
+
+    # SSH3 (Remote terminal over HTTP/3)
+    ssh3
+    ssh3-server
   ];
   environment.variables.EDITOR = "vim";
 

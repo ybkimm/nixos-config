@@ -22,13 +22,27 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
     let
-      nodes = [
-        { host = "devvm"; os = "nixos"; system = "x86_64-linux"; }
-        { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; }
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
       ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
       mkHost = import ./utils/mkHost inputs;
+      configs = {
+        packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
+        overlays = import ./overlays { inherit inputs; };
+      };
+      hostConfigs = [
+
+        (mkHost { host = "devvm"; os = "nixos"; system = "x86_64-linux"; })
+        (mkHost { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; })
+      ];
     in
-      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate {} (map mkHost nodes);
+      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs;
 }

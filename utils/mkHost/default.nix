@@ -1,6 +1,7 @@
-inputs@{ nixpkgs, nix-darwin, home-manager, mac-app-util, ... }: node:
+inputs@{ self, nixpkgs, nix-darwin, home-manager, mac-app-util, ... }: node:
 
 let
+  inherit (self) outputs;
   systemConfiguration = {
     nixos = "nixosConfigurations";
     darwin = "darwinConfigurations";
@@ -32,7 +33,14 @@ in
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = inputs;
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
+
+        nixpkgs = {
+          overlays = [
+            outputs.overlays.additions
+            outputs.overlays.modifications
+          ];
         };
       }
       (inputs.self + /hosts/${node.host})

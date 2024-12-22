@@ -1,7 +1,7 @@
-{ nixvim, ... }:
+{ inputs, ... }:
 {
   imports = [
-    nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeManagerModules.nixvim
 
     ./plugins/comment.nix
     ./plugins/copilot.nix
