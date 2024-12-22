@@ -1,4 +1,4 @@
-inputs@{ nixpkgs, nix-darwin, home-manager, ... }: node:
+inputs@{ nixpkgs, nix-darwin, home-manager, mac-app-util, ... }: node:
 
 let
   systemConfiguration = {
@@ -10,8 +10,18 @@ let
     darwin = nix-darwin.lib.darwinSystem;
   }.${node.os};
   modules = {
-    nixos = [ home-manager.nixosModules.home-manager ];
-    darwin = [ home-manager.darwinModules.home-manager ];
+    nixos = [
+      home-manager.nixosModules.home-manager
+    ];
+    darwin = [
+      mac-app-util.darwinModules.default
+      home-manager.darwinModules.home-manager
+      {
+        home-manager.sharedModules = [
+          mac-app-util.homeManagerModules.default
+        ];
+      }
+    ];
   }.${node.os};
 in
 {

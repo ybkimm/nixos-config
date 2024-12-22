@@ -1,9 +1,12 @@
-inputs:
+inputs@{ pkgs, ... }:
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     iterm2
+  ];
+
+  fonts.packages = with pkgs; [
     plemoljp-nf
   ];
 
@@ -12,9 +15,6 @@ inputs:
 
   # Enable alternative shell support in nix-darwin.
   # programs.fish.enable = true;
-
-  # Set Git commit hash for darwin-version.
-  system.configurationRevision = with inputs; self.rev or self.dirtyRev or null;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
