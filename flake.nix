@@ -25,37 +25,7 @@
         { host = "devvm"; os = "nixos"; system = "x86_64-linux"; }
         { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; }
       ];
-      mkHost = node:
-        let
-          systemConfiguration = {
-            nixos = "nixosConfigurations";
-            darwin = "darwinConfigurations";
-          }.${node.os};
-          theSystem = {
-            nixos = nixpkgs.lib.nixosSystem;
-            darwin = nix-darwin.lib.darwinSystem;
-          }.${node.os};
-          modules = {
-            nixos = [ home-manager.nixosModules.home-manager ];
-            darwin = [ home-manager.darwinModules.home-manager ];
-          }.${node.os};
-        in
-        {
-          ${systemConfiguration}.${node.host} = theSystem {
-            system = node.system;
-            #specialArgs = inputs;
-            modules = modules ++ [
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = inputs;
-                };
-              }
-              ./hosts/${node.host}
-            ];
-          };
-        };
+      mkHost = import ./utils/mkHost inputs;
     in
       nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate {} (map mkHost nodes);
 }
