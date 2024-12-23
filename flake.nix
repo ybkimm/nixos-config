@@ -17,44 +17,32 @@
       url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
     let
-      nodes = [
-        { host = "devvm"; os = "nixos"; system = "x86_64-linux"; }
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
       ];
-      mkHost = node:
-        let
-          systemConfiguration = {
-            nixos = "nixosConfigurations";
-            darwin = "darwinConfigurations";
-          }.${node.os};
-          theSystem = {
-            nixos = nixpkgs.lib.nixosSystem;
-            darwin = nix-darwin.lib.darwinSystem;
-          }.${node.os};
-          modules = {
-            nixos = [ home-manager.nixosModules.home-manager ];
-            darwin = [ home-manager.darwinModules.home-manager ];
-          }.${node.os};
-        in
-        {
-          ${systemConfiguration}.${node.host} = theSystem {
-            system = node.system;
-            specialArgs = inputs;
-            modules = modules ++ [
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = inputs;
-                };
-              }
-              ./hosts/${node.host}
-            ];
-          };
-        };
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      mkHost = import ./utils/mkHost inputs;
+      configs = {
+        packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
+        overlays = import ./overlays { inherit inputs; };
+      };
+      hostConfigs = [
+
+        (mkHost { host = "devvm"; os = "nixos"; system = "x86_64-linux"; })
+        (mkHost { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; })
+      ];
     in
-      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate {} (map mkHost nodes);
+      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs;
 }

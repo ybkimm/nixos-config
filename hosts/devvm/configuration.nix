@@ -16,6 +16,10 @@
     git
     vim
     wget
+
+    # SSH3 (Remote terminal over HTTP/3)
+    ssh3
+    ssh3-server
   ];
   environment.variables.EDITOR = "vim";
 
@@ -63,6 +67,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
