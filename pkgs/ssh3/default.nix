@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  libxcrypt
 }:
 
 buildGoModule rec {
@@ -15,8 +16,17 @@ buildGoModule rec {
     hash = "sha256-ZtQAJwGvNlJWUoDa6bS3AEdM3zbNMPQGdaIhR+yIonw=";
   };
 
+  buildInputs = [
+    libxcrypt
+  ];
+
   vendorHash = "sha256-VUNvb7m1nnH+mXUsnIKyPKJEVSMXBAaS4ihi5DZeFiI=";
-  subPackages = [ "cmd/ssh3" ];
+  subPackages = [
+    "cmd/ssh3"
+    "cmd/ssh3-server"
+  ];
+
+  CGO_ENABLED = 1;
 
   meta = with lib; {
     description = "Remote terminals over HTTP/3";

@@ -3,7 +3,11 @@ let
 in
 {
   imports = [
+    ./hardware-configuration.nix
     ./configuration.nix
+
+    ./services/ssh3
+
     (addUser {
       userName = "root";
       homePath = "/root";

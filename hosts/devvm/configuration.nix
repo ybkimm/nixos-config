@@ -5,10 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.systemPackages = with pkgs; [
@@ -16,10 +12,6 @@
     git
     vim
     wget
-
-    # SSH3 (Remote terminal over HTTP/3)
-    ssh3
-    ssh3-server
   ];
   environment.variables.EDITOR = "vim";
 
@@ -62,17 +54,19 @@
   services.openssh.settings.PermitRootLogin = "yes";
   services.openssh.settings.PasswordAuthentication = true;
 
+  # Enable ssh3 daemon
+  services.ssh3 = {
+    enable = true;
+    interface = "ens18";
+    url-path = "/bJGdGxGbpBKWRNK4TdKT8n";
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  networking.firewall = {
-    enable = true;
-
-    allowedTCPPorts = [ 80 443 ];
-    allowedUDPPorts = [ 80 443 ];
-  };
+  networking.firewall.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
