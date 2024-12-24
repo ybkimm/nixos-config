@@ -8,6 +8,7 @@ in
 
     ./apps/dokku
     ./apps/editorconfig
+    ./apps/protobuf
   ];
 
   home.packages = with pkgs; [
