@@ -9,7 +9,11 @@
             unusedparams = true;
           };
 
-          buildFlags = [ "-tags=wireinject" ];
+          settings = {
+            gopls = {
+              buildFlags = [ "-tags=wireinject" ];
+            };
+          };
           staticcheck = true;
         };
       };
