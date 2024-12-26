@@ -6,6 +6,7 @@ in
   imports = [
     ../default
 
+    ./apps/clang
     ./apps/dokku
     ./apps/editorconfig
     ./apps/protobuf

@@ -1,6 +1,7 @@
 { pkgs, outputs, ... }:
 {
   imports = [
+    ./apps/devtools
     ./apps/fish
     ./apps/neovim
     ./apps/golang
