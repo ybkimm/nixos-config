@@ -5,5 +5,6 @@
     go
     gopls
     sqlc
+    wire
   ];
 }
