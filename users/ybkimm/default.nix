@@ -9,6 +9,7 @@ in
     ./apps/clang
     ./apps/dokku
     ./apps/editorconfig
+    ./apps/neovim
     ./apps/protobuf
   ];
 
