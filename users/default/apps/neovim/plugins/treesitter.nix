@@ -17,6 +17,7 @@
         markdown_inline
         nix
         regex
+        sql
         toml
         vim
         vimdoc
