@@ -6,6 +6,7 @@ in
   imports = [
     ../default
 
+    ./apps/capnproto
     ./apps/clang
     ./apps/dokku
     ./apps/editorconfig
