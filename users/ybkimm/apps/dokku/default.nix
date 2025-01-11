@@ -1,7 +1,7 @@
 let
   aliases = {
     dokku = "ssh dokku@dokku.y";
-    dokkupub = "ssh dokku@pub.dokku.y"
+    dokkupub = "ssh dokku@pub.dokku.y";
   };
 in
 {
