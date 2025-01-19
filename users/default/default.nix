@@ -3,8 +3,8 @@
   imports = [
     ./apps/devtools
     ./apps/fish
-    ./apps/neovim
     ./apps/golang
+    ./apps/neovim
   ];
 
   home.packages = with pkgs; [
