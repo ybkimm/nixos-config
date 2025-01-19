@@ -10,6 +10,7 @@ in
     ./apps/dokku
     ./apps/editorconfig
     ./apps/fasm
+    ./apps/gcc
     ./apps/neovim
     ./apps/protobuf
   ];
