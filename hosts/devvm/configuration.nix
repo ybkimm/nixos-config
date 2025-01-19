@@ -61,12 +61,26 @@
     url-path = "/bJGdGxGbpBKWRNK4TdKT8n";
   };
 
+  # Eanble the PostgreSQL
+  services.postgresql = {
+    enable = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    8080
+  ];
 
   boot.kernel.sysctl = {
     "net.core.rmem_max" = 7500000;
