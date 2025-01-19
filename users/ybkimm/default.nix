@@ -7,7 +7,6 @@ in
     ../default
 
     ./apps/capnproto
-    ./apps/clang
     ./apps/dokku
     ./apps/editorconfig
     ./apps/fasm
