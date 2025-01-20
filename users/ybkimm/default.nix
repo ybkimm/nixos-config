@@ -7,9 +7,9 @@ in
     ../default
 
     ./apps/capnproto
+    ./apps/devtools
     ./apps/dokku
     ./apps/editorconfig
-    ./apps/gcc
     ./apps/neovim
     ./apps/protobuf
     ./apps/scons
