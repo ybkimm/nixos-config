@@ -4,6 +4,7 @@ inputs@{ pkgs, ... }:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     iterm2
+    qemu
   ];
 
   fonts.packages = with pkgs; [

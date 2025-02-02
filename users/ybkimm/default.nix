@@ -14,6 +14,7 @@ in
     ./apps/fasm
     ./apps/neovim
     ./apps/protobuf
+    ./apps/scons
   ];
 
   home.packages = with pkgs; [
