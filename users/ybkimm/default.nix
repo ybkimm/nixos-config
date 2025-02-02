@@ -6,8 +6,9 @@ in
   imports = [
     ../default
 
+    ./apps/bun
     ./apps/capnproto
-    ./apps/devtool
+    ./apps/devtools
     ./apps/dokku
     ./apps/editorconfig
     ./apps/fasm
