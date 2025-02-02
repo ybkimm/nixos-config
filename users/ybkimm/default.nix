@@ -7,10 +7,10 @@ in
     ../default
 
     ./apps/capnproto
+    ./apps/devtool
     ./apps/dokku
     ./apps/editorconfig
     ./apps/fasm
-    ./apps/gcc
     ./apps/neovim
     ./apps/protobuf
   ];
