@@ -5,6 +5,7 @@ inputs@{ pkgs, ... }:
   environment.systemPackages = with pkgs; [
     iterm2
     qemu
+    godot_4
   ];
 
   fonts.packages = with pkgs; [
