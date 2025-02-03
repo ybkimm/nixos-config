@@ -79,12 +79,23 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    3000
     8080
   ];
 
   boot.kernel.sysctl = {
     "net.core.rmem_max" = 7500000;
     "net.core.wmem_max" = 7500000;
+  };
+
+  virtualisation = {
+    containers.enable = true;
+
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
