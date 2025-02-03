@@ -11,7 +11,6 @@ in
     ./apps/devtools
     ./apps/dokku
     ./apps/editorconfig
-    ./apps/fasm
     ./apps/neovim
     ./apps/protobuf
     ./apps/scons
