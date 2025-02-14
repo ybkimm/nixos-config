@@ -6,11 +6,11 @@ in
   imports = [
     ../default
 
+    ./apps/bun
     ./apps/capnproto
+    ./apps/devtools
     ./apps/dokku
     ./apps/editorconfig
-    ./apps/fasm
-    ./apps/gcc
     ./apps/neovim
     ./apps/protobuf
     ./apps/scons

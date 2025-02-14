@@ -6,6 +6,8 @@ in
     ./hardware-configuration.nix
     ./configuration.nix
 
+    ./apps/fasm
+
     ./services/ssh3
 
     (addUser {
