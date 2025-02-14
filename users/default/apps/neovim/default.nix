@@ -3,6 +3,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
 
+    ./plugins/bufferline.nix
     ./plugins/comment.nix
     ./plugins/copilot.nix
     ./plugins/gitsigns.nix
