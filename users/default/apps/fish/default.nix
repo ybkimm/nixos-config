@@ -6,6 +6,8 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
       fish_add_path $HOME/.local/bin /opt/homebrew/bin
+
+      set -x LANG en_US.UTF-8
     '';
   };
 
