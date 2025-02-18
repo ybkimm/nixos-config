@@ -7,6 +7,7 @@ in
     ./configuration.nix
 
     ./services/ssh3
+    ./services/tmux
 
     (addUser {
       userName = "root";
