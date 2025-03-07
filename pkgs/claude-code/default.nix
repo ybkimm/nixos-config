@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, nodejs_23, ... }:
 stdenv.mkDerivation rec {
   pname = "claude-code";
-  version = "0.2.25";
+  version = "0.2.32";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-    hash = "sha512-n0hQshFUyrkQ5gFj1yW0gXU78aZlnGgURRcUXuU19JLpxdXpVhS7blBqSs1NtWLGwthD5o2YJCO3dJE9YG0CUQ==";
+    hash = "sha512-BhVAlBGkgMbkiWPein6fADLgfZKakR9FQNYGzReSebvBxxQRy9jypYuuZgd+4p5RIYsOtyevlUltAm0KHDgs7A==";
   };
 
   nativeBuildInputs = [ nodejs_23 ];
