@@ -6,6 +6,7 @@
     ./plugins/comment.nix
     ./plugins/copilot.nix
     ./plugins/gitsigns.nix
+    ./plugins/go-debug.nix
     ./plugins/indent-blankline.nix
     ./plugins/lsp.nix
     ./plugins/neo-tree.nix
