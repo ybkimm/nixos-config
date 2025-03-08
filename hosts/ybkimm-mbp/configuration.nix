@@ -4,7 +4,6 @@ inputs@{ pkgs, ... }:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     iterm2
-    ungoogled-chromium
     qemu
   ];
 
