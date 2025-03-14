@@ -1,17 +1,16 @@
-{ pkgs, outputs, ... }:
-let
-  foo = builtins.trace outputs "bar";
-in
+{ pkgs, ... }:
 {
   imports = [
     ../default
 
     ./apps/bun
     ./apps/capnproto
+    ./apps/claude
     ./apps/devtools
     ./apps/dokku
     ./apps/editorconfig
     ./apps/neovim
+    ./apps/node
     ./apps/protobuf
     ./apps/scons
   ];

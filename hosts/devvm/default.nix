@@ -9,6 +9,7 @@ in
     ./apps/fasm
 
     ./services/ssh3
+    ./services/tmux
 
     (addUser {
       userName = "root";

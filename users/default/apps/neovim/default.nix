@@ -7,6 +7,7 @@
     ./plugins/comment.nix
     ./plugins/copilot.nix
     ./plugins/gitsigns.nix
+    ./plugins/go-debug.nix
     ./plugins/indent-blankline.nix
     ./plugins/lsp.nix
     ./plugins/neo-tree.nix
@@ -19,7 +20,7 @@
 
     ./lsp/clangd.nix
     ./lsp/cssls.nix
-    ./lsp/golangci_lint_ls.nix
+    #./lsp/golangci_lint_ls.nix
     ./lsp/gopls.nix
     ./lsp/lua_ls.nix
     ./lsp/ts_ls.nix

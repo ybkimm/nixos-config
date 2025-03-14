@@ -81,6 +81,13 @@
     443
     3000
     8080
+    8081
+  ];
+
+  # Add Root CAs
+  security.pki.certificateFiles = [
+    ../../certs/ca1.crt
+    ../../certs/ca2.crt
   ];
 
   boot.kernel.sysctl = {
