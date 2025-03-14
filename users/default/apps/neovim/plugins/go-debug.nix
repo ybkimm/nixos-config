@@ -7,25 +7,25 @@
   programs.nixvim = {
     plugins.dap = {
       enable = true;
+    };
 
-      extensions = {
-        dap-go = {
-          enable = true;
+    plugins.dap-ui = {
+      enable = true;
+    };
 
-          dapConfigurations = [
-            {
-              type = "go";
-              name = "Debug Main";
-              request = "launch";
-              program = "\${workspaceFolder}/main.go";
-              buildFlags = "-gcflags='all=-N -l'";
-            }
-          ];
-        };
+    plugins.dap-go = {
+      enable = true;
 
-        dap-ui = {
-          enable = true;
-        };
+      settings = {
+        dap_configurations = [
+          {
+            type = "go";
+            name = "Debug Main";
+            request = "launch";
+            program = "\${workspaceFolder}/main.go";
+            buildFlags = "-gcflags='all=-N -l'";
+          }
+        ];
       };
     };
 
