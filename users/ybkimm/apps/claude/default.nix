@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
-    claude-code
     ripgrep
   ];
+
+  programs.fish.functions = {
+    claude = "npx -y @anthropic-ai/claude-code $argv";
+  };
 }
