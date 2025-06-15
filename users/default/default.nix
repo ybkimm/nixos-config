@@ -4,6 +4,7 @@
     ./apps/devtools
     ./apps/fish
     ./apps/golang
+    ./apps/kakoune
     ./apps/neovim
     ./apps/rust
   ];
