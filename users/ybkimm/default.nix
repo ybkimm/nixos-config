@@ -13,6 +13,8 @@
     ./apps/node
     ./apps/protobuf
     ./apps/scons
+    ./apps/tmux
+    ./apps/actions
   ];
 
   home.packages = with pkgs; [
