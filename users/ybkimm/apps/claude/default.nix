@@ -4,7 +4,7 @@
     ripgrep
   ];
 
-  programs.fish.functions = {
-    claude = "npx -y @anthropic-ai/claude-code $argv";
+  programs.fish.shellAliases = {
+    claude = "~/.claude/local/claude";
   };
 }
