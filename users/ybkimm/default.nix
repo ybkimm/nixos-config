@@ -20,4 +20,8 @@
   home.packages = with pkgs; [
     curlHTTP3
   ];
+
+  home.sessionVariables = {
+    SHELL = "${pkgs.fish}/bin/fish";
+  };
 }
