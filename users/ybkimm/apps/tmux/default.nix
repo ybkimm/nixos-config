@@ -5,7 +5,7 @@
     clock24 = true;
     baseIndex = 1;
     mouse = true;
-    terminal = "tmux-256color";
+    terminal = "screen-256color";
     escapeTime = 50;
     prefix = "C-Space";
     shell = "${pkgs.fish}/bin/fish";
@@ -20,7 +20,6 @@
       in
       ''
         set-option -g default-command "${defaultCommand}"
-        set -sa terminal-overrides ",xterm*:Tc"
       '';
   };
 }
