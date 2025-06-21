@@ -22,12 +22,12 @@ map -docstring "close current buffer" global user c ": db<ret>"
 map -docstring "goto next buffer" global user n ": bn<ret>"
 map -docstring "goto previous buffer" global user N ": bp<ret>"
 
-define-command -docstring 'Invoke fzf to open a file' -params 0 fzf-edit %{
+define-command -docstring 'broese files' -params 0 fzf-files %{
   evaluate-commands %sh{
     if [ -z "''\${kak_client_env_TMUX}" ]; then
       printf 'fail "client was not started under tmux"\n'
     else
-      file="$(find . -type f |TMUX="''\${kak_client_env_TMUX}" fzf-tmux -p)"
+    	file="$(rg --files --color=always | fzf-tmux -p --ansi --query "$(python3 -c "import os,sys; result=os.path.relpath(sys.argv[1]); print('' if result=='.' else result)" "$(dirname "$kak_buffile")")")"
       if [ -n "$file" ]; then
         printf 'edit "%s"\n' "$file"
       fi
@@ -35,7 +35,23 @@ define-command -docstring 'Invoke fzf to open a file' -params 0 fzf-edit %{
   }
 }
 
-map -docstring "open file browser" global user b ":fzf-edit<ret>"
+map -docstring "open file" global user b ":fzf-files<ret>"
+
+define-command -docstring 'Invoke fzf to open a file' -params 0 fzf-grep %{
+  evaluate-commands %sh{
+    if [ -z "''\${kak_client_env_TMUX}" ]; then
+      printf 'fail "client was not started under tmux"\n'
+    else
+      RELOAD='reload:rg --color=always --column --smart-case {q} || :'
+    	file="$(fzf-tmux -p --disabled --ansi --bind "start:$RELOAD" --bind "change:$RELOAD" | cut -d':' -f1)"
+      if [ -n "$file" ]; then
+        printf 'edit "%s"\n' "$file"
+      fi
+    fi
+  }
+}
+
+map -docstring "grep files" global user g ":fzf-grep<ret>"
 
 define-command -docstring 'Invoke fzf to select a buffer' fzf-buffer %{
   evaluate-commands %sh{
@@ -56,7 +72,7 @@ define-command -docstring 'Invoke fzf to select a buffer' fzf-buffer %{
   }
 }
 
-map -docstring "open file browser" global user B ":fzf-buffer<ret>"
+map -docstring "open buffer browser" global user B ":fzf-buffer<ret>"
 
 define-command suspend-and-resume \
     -params 1..2 \
@@ -64,14 +80,14 @@ define-command suspend-and-resume \
     %{ evaluate-commands %sh{
 
     # Note we are adding '&& fg' which resumes the kakoune client process after the cli command exits
-    cli_cmd="$1 && fg"
+    cli_cmd="($1) && fg"
     post_resume_cmd="$2"
 
     # automation is different platform to platform
     platform=$(uname -s)
     case $platform in
         Darwin)
-	    automate_cmd="sleep 0.01; osascript -e 'tell application \"System Events\" to keystroke \"${cli_cmd}\n\"'"
+      	    automate_cmd="sleep 0.01; osascript -e 'tell application \"System Events\" to keystroke \"${cli_cmd}\n\"'"
             kill_cmd="/bin/kill"
             break
             ;;

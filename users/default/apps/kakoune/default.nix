@@ -17,6 +17,7 @@ in
 {
   home.packages = [
     kakoune
+    pkgs.kakoune-lsp
     pkgs.fzf
   ];
 }
