@@ -39,8 +39,7 @@
         overlays = import ./overlays { inherit inputs; };
       };
       hostConfigs = [
-
-        (mkHost { host = "devvm"; os = "nixos"; system = "x86_64-linux"; })
+        (mkHost { host = "ybkimm-gaming"; os = "nixos"; system = "x86_64-linux"; })
         (mkHost { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; })
       ];
     in
