@@ -21,7 +21,7 @@
     curlHTTP3
   ];
 
-  home.sessionVariables = {
-    SHELL = "${pkgs.fish}/bin/fish";
-  };
+  #home.sessionVariables = {
+  #  SHELL = "${pkgs.fish}/bin/fish";
+  #};
 }

@@ -17,12 +17,15 @@ in
     (addUser {
       userName = "ybkimm";
       homePath = "/home/ybkimm";
-      homeConfigName = "ybkimm";
+      homeConfigName = "ybkimm-desktop";
       extraUserOptions = {
         isNormalUser = true;
         description = "Yongbin Kim";
-        extraGroups = [ "wheel", "networkmanager" ];
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+        ];
       };
-    });
+    })
   ];
 }
