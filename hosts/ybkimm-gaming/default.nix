@@ -8,6 +8,8 @@ in
 
     ./asian.nix
     ./gaming.nix
+    ./nas.nix
+    ./rootca.nix
 
     (addUser {
       userName = "root";

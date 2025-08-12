@@ -16,5 +16,11 @@
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.kimpanel
-  ]; 
+  ];
+
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    plemoljp-nf
+  ];
 }

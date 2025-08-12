@@ -1,4 +1,4 @@
-inputs@{ self, nixpkgs, nix-darwin, home-manager, mac-app-util, ... }: node:
+inputs@{ self, nixpkgs, nix-darwin, home-manager, mac-app-util, sops-nix, ... }: node:
 
 let
   inherit (self) outputs;
@@ -13,10 +13,12 @@ let
   modules = {
     nixos = [
       home-manager.nixosModules.home-manager
+      sops-nix.nixosModules.sops
     ];
     darwin = [
       mac-app-util.darwinModules.default
       home-manager.darwinModules.home-manager
+      sops-nix.darwinModules.sops
       {
         home-manager.sharedModules = [
           mac-app-util.homeManagerModules.default
@@ -42,6 +44,11 @@ in
             outputs.overlays.modifications
           ];
         };
+      }
+      {
+        sops.defaultSopsFile = ../../secrets/secrets.yaml;
+        sops.defaultSopsFormat = "yaml";
+        sops.age.keyFile = "/var/lib/sops-nix/key.txt";
       }
       (inputs.self + /hosts/${node.host})
     ];

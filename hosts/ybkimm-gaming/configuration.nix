@@ -21,6 +21,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  networking.hosts = {
+    "0.0.0.0" = ["apresolve.spotify.com"];
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 
@@ -40,7 +44,13 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+
+    displayManager.sessionCommands = ''
+      ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 194 = F16"
+    '';
+  };
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -110,7 +120,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
