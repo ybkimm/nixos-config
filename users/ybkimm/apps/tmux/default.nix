@@ -7,7 +7,7 @@
     mouse = true;
     terminal = "screen-256color";
     escapeTime = 50;
-    prefix = "C-b";
+    prefix = "C-Space";
     shell = "${pkgs.fish}/bin/fish";
     sensibleOnTop = true;
 
