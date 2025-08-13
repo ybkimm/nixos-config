@@ -5,7 +5,6 @@
 
     ./apps/actions
     ./apps/bun
-    ./apps/capnproto
     ./apps/claude
     ./apps/devtools
     ./apps/dokku
