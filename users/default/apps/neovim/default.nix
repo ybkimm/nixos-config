@@ -20,9 +20,9 @@
 
     ./lsp/clangd.nix
     ./lsp/cssls.nix
-    #./lsp/golangci_lint_ls.nix
     ./lsp/gopls.nix
     ./lsp/lua_ls.nix
+    ./lsp/phpactor.nix
     ./lsp/ts_ls.nix
   ];
 
