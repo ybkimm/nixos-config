@@ -7,6 +7,7 @@
     ./apps/devtools
     ./apps/editorconfig
     ./apps/node
+    ./apps/starship
     ./apps/tmux
   ];
 
