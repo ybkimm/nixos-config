@@ -7,6 +7,7 @@ in
     ./configuration.nix
 
     ./asian.nix
+    ./docker.nix
     ./gaming.nix
     ./nas.nix
     ./rootca.nix

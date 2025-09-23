@@ -9,6 +9,8 @@
   hardware.nvidia = {
     open = true;
     modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
 
     prime = {
       sync.enable = true;
@@ -27,5 +29,6 @@
   environment.systemPackages = with pkgs; [
     mangohud
     discord
+    wl-clipboard
   ];
 }
