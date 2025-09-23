@@ -3,8 +3,9 @@
   imports = [
     ../ybkimm
 
-    ./apps/kubectl
+    ./apps/claude
     ./apps/graphics_gd
+    ./apps/k8s
   ];
 
   home.packages = with pkgs; [

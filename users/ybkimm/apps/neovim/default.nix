@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./lsp/gdscript.nix
-  ];
-}
