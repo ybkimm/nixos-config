@@ -11,7 +11,7 @@
 
           settings = {
             gopls = {
-              buildFlags = [ "-tags=wireinject" ];
+              buildFlags = [ "-tags=wireinject,goexperiment.jsonv2" ];
             };
           };
           staticcheck = true;

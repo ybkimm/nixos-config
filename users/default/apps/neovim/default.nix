@@ -20,7 +20,6 @@
 
     ./lsp/clangd.nix
     ./lsp/cssls.nix
-    #./lsp/golangci_lint_ls.nix
     ./lsp/gopls.nix
     ./lsp/lua_ls.nix
     ./lsp/ts_ls.nix
@@ -28,6 +27,9 @@
 
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
 
     colorschemes = {
       tokyonight = {
@@ -87,5 +89,4 @@
     '';
   };
 
-  programs.fish.shellAliases.vi = "nvim";
 }
