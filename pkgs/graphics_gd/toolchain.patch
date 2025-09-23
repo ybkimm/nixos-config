@@ -1,0 +1,143 @@
+diff --git a/cmd/gd/internal/tooling/toolchain.go b/cmd/gd/internal/tooling/toolchain.go
+index 5cb30beae..5537d3566 100644
+--- a/cmd/gd/internal/tooling/toolchain.go
++++ b/cmd/gd/internal/tooling/toolchain.go
+@@ -3,8 +3,6 @@ package tooling
+ import (
+ 	"bytes"
+ 	"fmt"
+-	"io"
+-	"net/http"
+ 	"os"
+ 	"os/exec"
+ 	"os/user"
+@@ -162,125 +160,13 @@ func (exe *toolchain) Lookup() (string, error) {
+ 			}
+ 		}
+ 	}
+-	// some users (ie. NixOS) don't want things to be automatically installed, they
+-	// can set their toolchain to local and download/install everything themselves.
+-	if os.Getenv("GOTOOLCHAIN") == "local" || os.Getenv("GDTOOLCHAIN") == "local" || GDPATH == "" {
+-		path, err := exec.LookPath(exe.Name)
+-		if err != nil {
+-			return "", fmt.Errorf(
+-				"'%v' not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
+-				exe.Name, exe.RequiredFor, exe.DownloadHint,
+-			)
+-		}
+-		exe.path = path
+-		return exe.PathToCommand(), nil
+-	}
+-	// if the expected version of the tool is already installed in $PATH, then we can
+-	// just use it.
+-	if path, err := exec.LookPath(exe.Name); err == nil {
+-		version, _ := exec.Command(path, exe.VersionFlag).CombinedOutput()
+-		if (exe.Version != "" && string(version) == exe.Version) || (exe.VersionPrefix != "" && strings.HasPrefix(string(version), exe.VersionPrefix)) {
+-			exe.path = path
+-			return exe.PathToCommand(), nil
+-		}
+-	}
+-	// attempt to automatically download and install the toolchain.
+-	url, ok := exe.Downloads[GOOS][GOARCH]
+-	if !ok {
+-		url = variables.Replace(exe.DownloadURL)
+-	}
+-	if url == "" || strings.Contains(url, "$(MISSING)") {
+-		return "", fmt.Errorf(
+-			"'%v' not found in $PATH (required for %v) and no automatic-download is available, please install it, ie. %v",
+-			exe.Name, exe.RequiredFor, exe.DownloadHint,
+-		)
+-	}
+-	fmt.Printf("gd: downloading %s v%s\n", exe.Name, exe.Version)
+-	if err := os.MkdirAll(install_dir, 0755); err != nil {
+-		return "", xray.New(err)
+-	}
+-	var dest = install_path
+-	dest += "." + exe.Version + ".download"
+-	out, err := os.OpenFile(dest, os.O_CREATE|os.O_WRONLY, 0755)
+-	if err != nil {
+-		return "", xray.New(err)
+-	}
+-	defer out.Close()
+-	stat, err := out.Stat()
+-	if err != nil {
+-		return "", xray.New(err)
+-	}
+-	req, err := http.NewRequest("GET", url, nil)
+-	if err != nil {
+-		return "", xray.New(err)
+-	}
+-	if stat.Size() > 0 {
+-		req.Header.Set("Range", fmt.Sprintf("bytes=%d-", stat.Size()))
+-	}
+-	req.Header.Set("User-Agent", "graphics.gd/cmd/gd")
+-	resp, err := http.DefaultClient.Do(req)
++	path, err := exec.LookPath(exe.Name)
+ 	if err != nil {
+-		return "", xray.New(err)
+-	}
+-	defer resp.Body.Close()
+-	switch resp.StatusCode {
+-	case 200:
+-	case 206:
+-		if _, err := out.Seek(stat.Size(), io.SeekStart); err != nil {
+-			return "", xray.New(err)
+-		}
+-	case 416:
+-		contentRange := resp.Header.Get("Content-Range")
+-		if contentRange != fmt.Sprintf("bytes */%d", stat.Size()) {
+-			return "", fmt.Errorf("unable to resume download of '%v' (required for %v), please delete %v and try again\nGET %s HTTP status: %v", exe.Name, exe.RequiredFor, dest, url, resp.StatusCode)
+-		}
+-	default:
+ 		return "", fmt.Errorf(
+-			"unable to download '%v' (required for %v) and not found in $PATH, please install it, ie. %v\nGET %s HTTP status: %v",
+-			exe.Name, exe.RequiredFor, exe.DownloadHint, url, resp.StatusCode,
++			"'%v' not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
++			exe.Name, exe.RequiredFor, exe.DownloadHint,
+ 		)
+ 	}
+-	if resp.StatusCode != 416 {
+-		if _, err := io.Copy(out, resp.Body); err != nil {
+-			return "", xray.New(err)
+-		}
+-	}
+-	var unzip = variables.Replace(exe.Unzip)
+-	if exe.IsApp && runtime.GOOS == "darwin" {
+-		unzip = ""
+-	}
+-	switch {
+-	case strings.HasSuffix(url, ".zip"):
+-		if err := ExtractArchive(dest, install_dir, "zip", unzip, runtime.GOOS != "darwin" || !exe.IsApp); err != nil {
+-			return "", xray.New(err)
+-		}
+-		if err := os.Remove(dest); err != nil {
+-			return "", xray.New(err)
+-		}
+-	case strings.HasSuffix(url, ".tar.gz"):
+-		if err := ExtractArchive(dest, install_dir, "tar.gz", unzip, true); err != nil {
+-			return "", xray.New(err)
+-		}
+-		if err := os.Remove(dest); err != nil {
+-			return "", xray.New(err)
+-		}
+-	case strings.HasSuffix(url, ".tar.xz"):
+-		if err := ExtractArchive(dest, install_dir, "tar.xz", unzip, true); err != nil {
+-			return "", xray.New(err)
+-		}
+-		if err := os.Remove(dest); err != nil {
+-			return "", xray.New(err)
+-		}
+-	default:
+-		if err := os.Rename(dest, install_path); err != nil {
+-			return "", xray.New(err)
+-		}
+-	}
+-	if unzip != "" {
+-		if err := os.Rename(filepath.Join(install_dir, unzip), install_path); err != nil {
+-			return "", xray.New(err)
+-		}
+-	}
+-	exe.path = install_path
++	exe.path = path
+ 	return exe.PathToCommand(), nil
+ }

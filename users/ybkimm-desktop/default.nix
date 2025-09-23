@@ -4,12 +4,20 @@
     ../ybkimm
 
     ./apps/kubectl
+    ./apps/graphics_gd
   ];
 
   home.packages = with pkgs; [
+    age
+    chromium
+    freelens
     keepassxc
     librewolf
-    age
+    ghostty
+  ];
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
   ];
 
   services.spotifyd = {
