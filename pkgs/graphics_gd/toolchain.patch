@@ -1,5 +1,5 @@
 diff --git a/cmd/gd/internal/tooling/toolchain.go b/cmd/gd/internal/tooling/toolchain.go
-index 5cb30beae..5537d3566 100644
+index a6380704a..b8958d686 100644
 --- a/cmd/gd/internal/tooling/toolchain.go
 +++ b/cmd/gd/internal/tooling/toolchain.go
 @@ -3,8 +3,6 @@ package tooling
@@ -11,7 +11,15 @@ index 5cb30beae..5537d3566 100644
  	"os"
  	"os/exec"
  	"os/user"
-@@ -162,125 +160,13 @@ func (exe *toolchain) Lookup() (string, error) {
+@@ -12,7 +10,6 @@ import (
+ 	"runtime"
+ 	"strings"
+
+-	"github.com/schollz/progressbar/v3"
+ 	"runtime.link/api/xray"
+ )
+
+@@ -163,128 +160,13 @@ func (exe *toolchain) Lookup() (string, error) {
  			}
  		}
  	}
@@ -21,8 +29,8 @@ index 5cb30beae..5537d3566 100644
 -		path, err := exec.LookPath(exe.Name)
 -		if err != nil {
 -			return "", fmt.Errorf(
--				"'%v' not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
--				exe.Name, exe.RequiredFor, exe.DownloadHint,
+-				"'%v' %s not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
+-				exe.Name, exe.Version, exe.RequiredFor, exe.DownloadHint,
 -			)
 -		}
 -		exe.path = path
@@ -44,11 +52,10 @@ index 5cb30beae..5537d3566 100644
 -	}
 -	if url == "" || strings.Contains(url, "$(MISSING)") {
 -		return "", fmt.Errorf(
--			"'%v' not found in $PATH (required for %v) and no automatic-download is available, please install it, ie. %v",
--			exe.Name, exe.RequiredFor, exe.DownloadHint,
+-			"'%v' %s not found in $PATH (required for %v) and no automatic-download is available, please install it, ie. %v",
+-			exe.Name, exe.Version, exe.RequiredFor, exe.DownloadHint,
 -		)
 -	}
--	fmt.Printf("gd: downloading %s v%s\n", exe.Name, exe.Version)
 -	if err := os.MkdirAll(install_dir, 0755); err != nil {
 -		return "", xray.New(err)
 -	}
@@ -92,12 +99,16 @@ index 5cb30beae..5537d3566 100644
  		return "", fmt.Errorf(
 -			"unable to download '%v' (required for %v) and not found in $PATH, please install it, ie. %v\nGET %s HTTP status: %v",
 -			exe.Name, exe.RequiredFor, exe.DownloadHint, url, resp.StatusCode,
-+			"'%v' not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
-+			exe.Name, exe.RequiredFor, exe.DownloadHint,
- 		)
- 	}
+-		)
+-	}
 -	if resp.StatusCode != 416 {
--		if _, err := io.Copy(out, resp.Body); err != nil {
+-		bar := progressbar.DefaultBytes(
+-			resp.ContentLength,
+-			fmt.Sprintf("gd: downloading %s v%s", exe.Name, exe.Version),
++			"'%v' %s not found in $PATH (required for %v) and automatic-downloads are disabled, please install it, ie. %v",
++			exe.Name, exe.Version, exe.RequiredFor, exe.DownloadHint,
+ 		)
+-		if _, err := io.Copy(io.MultiWriter(out, bar), resp.Body); err != nil {
 -			return "", xray.New(err)
 -		}
 -	}
@@ -136,7 +147,7 @@ index 5cb30beae..5537d3566 100644
 -		if err := os.Rename(filepath.Join(install_dir, unzip), install_path); err != nil {
 -			return "", xray.New(err)
 -		}
--	}
+ 	}
 -	exe.path = install_path
 +	exe.path = path
  	return exe.PathToCommand(), nil

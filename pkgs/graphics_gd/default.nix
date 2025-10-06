@@ -10,15 +10,16 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "quaadgras";
     repo = "graphics.gd";
-    rev = "9b8b2467f2082f59d12b6d1b4c4ecc985b808ab3";
-    hash = "sha256-37neoE8jdocAPUv6I7ow+ColCaIL1VeJHDehapsWJ5s=";
+    rev = "5551445f1046d8c359cfb9d4e53c450b55668edd";
+    hash = "sha256-Rko0DLRt7qeEI9tZ4NSlsR5mL1gj1jNJIsm6oPwkV/E=";
   };
 
   patches = [
     ./toolchain.patch
+    ./web-https.patch
   ];
 
-  vendorHash = "sha256-QCRMmKfgp1SEDBIXWNH1rBJ+0+VWFX2BGBHa9qIP5cQ=";
+  vendorHash = "sha256-RpUoZs3SsF8q/YytDAEk3eCu27Rvk6RyyLdkqWndeZM=";
 
   subPackages = [ "cmd/gd" ];
 
