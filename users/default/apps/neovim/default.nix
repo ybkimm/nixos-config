@@ -22,6 +22,7 @@
     ./lsp/cssls.nix
     ./lsp/gopls.nix
     ./lsp/lua_ls.nix
+    ./lsp/phpactor.nix
     ./lsp/ts_ls.nix
   ];
 
