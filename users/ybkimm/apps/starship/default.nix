@@ -7,6 +7,7 @@
         "$nix_shell"
         "$username"
         "$hostname"
+        "$shell"
         "$directory"
         "$git_branch"
         "$git_state"
@@ -16,6 +17,10 @@
         "$python"
         "$character"
       ];
+
+      shell = {
+        fish_indicator = "<><"
+      };
 
       directory = {
         style = "blue";
