@@ -13,6 +13,7 @@
 
   home.packages = with pkgs; [
     curlHTTP3
+    git-annex
   ];
 
   #home.sessionVariables = {
