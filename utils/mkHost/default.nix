@@ -1,4 +1,4 @@
-inputs@{ self, nixpkgs, nix-darwin, home-manager, mac-app-util, sops-nix, ... }: node:
+inputs@{ self, nixpkgs, nix-darwin, nix-ld, home-manager, mac-app-util, sops-nix, ... }: node:
 
 let
   inherit (self) outputs;
@@ -14,6 +14,8 @@ let
     nixos = [
       home-manager.nixosModules.home-manager
       sops-nix.nixosModules.sops
+      nix-ld.nixosModules.nix-ld
+      { programs.nix-ld.dev.enable = true; }
     ];
     darwin = [
       mac-app-util.darwinModules.default
