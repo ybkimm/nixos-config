@@ -15,13 +15,10 @@
     freelens
     keepassxc
     librewolf
+    spotify
   ];
 
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
-
-  services.spotifyd = {
-    enable = true;
-  };
 }
