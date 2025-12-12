@@ -24,6 +24,7 @@
     ./lsp/lua_ls.nix
     ./lsp/phpactor.nix
     ./lsp/ts_ls.nix
+    ./lsp/vue_ls.nix
   ];
 
   programs.nixvim = {
