@@ -2,6 +2,8 @@
 {
   home.packages = with pkgs; [
     ripgrep
+    socat
+    bubblewrap
   ];
 
   programs.fish.shellAliases = {
