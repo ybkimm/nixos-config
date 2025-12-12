@@ -14,7 +14,6 @@
     freelens
     keepassxc
     librewolf
-    ghostty
   ];
 
   home.sessionPath = [
