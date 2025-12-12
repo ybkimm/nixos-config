@@ -6,6 +6,7 @@
     ./apps/claude
     ./apps/graphics_gd
     ./apps/k8s
+    ./apps/lutris
   ];
 
   home.packages = with pkgs; [
