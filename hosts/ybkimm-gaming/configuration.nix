@@ -97,6 +97,7 @@
     vim
     wget
     git
+    waterfox
   ];
 
   # Make /bin/bash. Actually nixos' sh is bash
