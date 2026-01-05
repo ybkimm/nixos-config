@@ -1,10 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ../ybkimm
+    ../ybkimm-dev
 
-    ./apps/claude
-    ./apps/k8s
     ./apps/lutris
   ];
 
@@ -15,9 +13,5 @@
     keepassxc
     librewolf
     spotify
-  ];
-
-  home.sessionPath = [
-    "$HOME/.local/bin"
   ];
 }

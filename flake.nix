@@ -50,9 +50,15 @@
         overlays = import ./overlays { inherit inputs; };
       };
       hostConfigs = [
+        (mkHost { host = "devcontainer"; os = "nixos"; system = "x86_64-linux"; })
         (mkHost { host = "ybkimm-gaming"; os = "nixos"; system = "x86_64-linux"; })
         (mkHost { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; })
       ];
     in
-      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs;
+      nixpkgs.lib.recursiveUpdate
+        (nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs)
+        {
+          packages.x86_64-linux.devcontainer-image =
+            self.nixosConfigurations.devcontainer.config.system.build.tarball;
+        };
 }
