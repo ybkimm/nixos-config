@@ -98,6 +98,7 @@
     wget
     git
     waterfox
+    geary
   ];
 
   # Make /bin/bash. Actually nixos' sh is bash
