@@ -75,6 +75,10 @@ let
     pref("app.update.auto", false);
     pref("app.update.enabled", false);
     pref("browser.crashReports.unsubmittedCheck.enabled", false);
+
+    // Prevent extension/settings reset on Nix store path change
+    pref("extensions.autoDisableScopes", 0);
+    pref("extensions.checkCompatibility", false);
   '';
 
 in
@@ -142,7 +146,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r . $out/opt/waterfox
 
     makeWrapper $out/opt/waterfox/waterfox-bin $out/bin/waterfox \
-      --set GTK_IM_MODULE gtk-im-context-simple \
+      --set MOZ_LEGACY_PROFILES 1 \
+      --set GTK_IM_MODULE fcitx \
+      --set XMODIFIERS @im=fcitx \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
     cp ${desktopItem}/share/applications/* $out/share/applications/
