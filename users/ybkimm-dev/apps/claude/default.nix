@@ -1,12 +1,11 @@
 { pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
+    bubblewrap
+    libnotify
     ripgrep
     socat
-    bubblewrap
   ];
 
-  programs.fish.shellAliases = {
-    claude = "~/.claude/local/claude";
-  };
+  # Add ~/.local/bin to PATH?
 }
