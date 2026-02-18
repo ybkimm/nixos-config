@@ -12,7 +12,8 @@
   ];
 
   home.packages = with pkgs; [
-    curlHTTP3
+    git-annex
+    jq
   ];
 
   #home.sessionVariables = {

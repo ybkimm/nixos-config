@@ -1,11 +1,9 @@
 { pkgs, ... }:
 {
   imports = [
-    ../ybkimm
+    ../ybkimm-dev
 
-    ./apps/claude
-    ./apps/graphics_gd
-    ./apps/k8s
+    ./apps/lutris
   ];
 
   home.packages = with pkgs; [
@@ -14,14 +12,6 @@
     freelens
     keepassxc
     librewolf
-    ghostty
+    spotify
   ];
-
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
-
-  services.spotifyd = {
-    enable = true;
-  };
 }

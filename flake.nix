@@ -12,6 +12,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ld = {
+      url = "github:nix-community/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +33,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, nix-ld, home-manager, ... }:
     let
       systems = [
         "aarch64-linux"
@@ -46,9 +50,15 @@
         overlays = import ./overlays { inherit inputs; };
       };
       hostConfigs = [
+        (mkHost { host = "devcontainer"; os = "nixos"; system = "x86_64-linux"; })
         (mkHost { host = "ybkimm-gaming"; os = "nixos"; system = "x86_64-linux"; })
         (mkHost { host = "ybkimm-mbp"; os = "darwin"; system = "aarch64-darwin"; })
       ];
     in
-      nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs;
+      nixpkgs.lib.recursiveUpdate
+        (nixpkgs.lib.foldl' nixpkgs.lib.recursiveUpdate configs hostConfigs)
+        {
+          packages.x86_64-linux.devcontainer-image =
+            self.nixosConfigurations.devcontainer.config.system.build.tarball;
+        };
 }

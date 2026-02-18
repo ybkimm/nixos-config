@@ -9,6 +9,7 @@
         "$hostname"
         "$shell"
         "$directory"
+        "$shell"
         "$git_branch"
         "$git_state"
         "$git_status"
@@ -24,6 +25,12 @@
 
       directory = {
         style = "blue";
+      };
+
+      shell = {
+        fish_indicator = "<><";
+        style = "cyan bold";
+        disabled = false;
       };
 
       character = {

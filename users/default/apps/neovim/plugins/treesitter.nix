@@ -6,7 +6,9 @@
 
       grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
         bash
+        c
         capnp
+        cpp
         diff
         go
         html

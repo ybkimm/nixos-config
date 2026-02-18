@@ -8,8 +8,12 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 1;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+  };
+
 
   networking.hostName = "ybkimm-gaming"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -93,6 +97,8 @@
     vim
     wget
     git
+    waterfox
+    geary
   ];
 
   # Make /bin/bash. Actually nixos' sh is bash
@@ -110,8 +116,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  programs.nix-ld.enable = true;
 
   # List services that you want to enable:
 
