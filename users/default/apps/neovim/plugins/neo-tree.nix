@@ -3,11 +3,13 @@
     plugins.neo-tree = {
       enable = true;
 
-      filesystem = {
-        filteredItems = {
-          visible = true;
-          hideDotfiles = false;
-          hideGitignored = false;
+      settings = {
+        filesystem = {
+          filtered_items = {
+            visible = true;
+            hide_dotfiles = false;
+            hide_gitignored = false;
+          };
         };
       };
     };

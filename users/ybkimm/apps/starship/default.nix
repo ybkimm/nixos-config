@@ -19,7 +19,7 @@
       ];
 
       shell = {
-        fish_indicator = "<><"
+        fish_indicator = "<><";
       };
 
       directory = {

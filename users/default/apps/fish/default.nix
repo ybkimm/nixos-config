@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./nvm.nix
+  ];
+
   programs.fish = {
     enable = true;
 
