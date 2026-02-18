@@ -9,7 +9,6 @@
         "$hostname"
         "$shell"
         "$directory"
-        "$shell"
         "$git_branch"
         "$git_state"
         "$git_status"
@@ -18,10 +17,6 @@
         "$python"
         "$character"
       ];
-
-      shell = {
-        fish_indicator = "<><";
-      };
 
       directory = {
         style = "blue";
